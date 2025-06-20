@@ -2,22 +2,25 @@ import oracledb
 import psycopg2
 
 # Oracle connection
-oracle_conn = oracledb.connect(user="your user", password="your_pass", dsn="your_oracle_dsn")
+oracle_conn = oracledb.connect( user="airflow",
+    password="airflow",
+    dsn="localhost:1522/XEPDB1")
 oracle_cursor = oracle_conn.cursor()
 
 # PostgreSQL connection
 pg_conn = psycopg2.connect(
-    dbname="your_pg_db",
-    user="your_pg_user",
-    password="your_pg_pass",
+    dbname="airflow",
+    user="airflow",
+    password="airflow",
     host="localhost",
-    port="5432"
+    port="5433"
 )
+
 pg_cursor = pg_conn.cursor()
 
 # Ensure target table exists in PostgreSQL
 pg_cursor.execute("""
-CREAT TABLE IF NOT EXISTS people (
+CREATE TABLE IF NOT EXISTS people (
     name TEXT,
     email TEXT                  
 )
